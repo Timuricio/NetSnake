@@ -2,6 +2,7 @@ package Client;
 
 import Common.Connection;
 import Common.Field;
+import Common.Test;
 import Server.ServerSnake;
 
 import javax.swing.*;
@@ -16,10 +17,11 @@ public class ClientSnake
 {
     public static void main(String[] args) throws InterruptedException
     {
+        Test t = new Test();
         Snake snake;
         ClientFrame frame = new ClientFrame();
 
-        Field field = new Field(ServerSnake.WIDTH,ServerSnake.HEIGHT);
+        Field field = new Field(ServerSnake.WIDTH, ServerSnake.HEIGHT);
         int[][] matrix = field.getMatrix();
 
         final int time = 200;
@@ -39,12 +41,16 @@ public class ClientSnake
             field = connection.resive();
             snake = new Snake(metka, field);
 
-
-
             while (true)
             {
                 wait(time);
                 field = snake.move();
+
+                t.test(field);
+                System.out.println();
+                System.out.println();
+
+
                 connection.send(field);
                 field = connection.resive();
                 frame.repaintField(field);

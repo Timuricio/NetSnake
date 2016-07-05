@@ -9,7 +9,7 @@ public class Field implements Serializable
 {
     private int[][] matrix;
 
-    public Field(int x, int y)
+    public Field( int y,int x)
     {
         matrix = new int[y][x];
     }

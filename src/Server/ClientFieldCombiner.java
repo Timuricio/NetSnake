@@ -17,7 +17,8 @@ public class ClientFieldCombiner
     {
         this.quantity = quantity;
         matrixCommon = new int[ServerSnake.HEIGHT][ServerSnake.WIDTH];
-        serverField = new Field(ServerSnake.WIDTH,ServerSnake.HEIGHT);
+        serverField = new Field(ServerSnake.HEIGHT,ServerSnake.WIDTH);
+        init(quantity);
     }
 
     private Field init(int quantity)
@@ -25,9 +26,10 @@ public class ClientFieldCombiner
         int[][] matrix = new int[ServerSnake.HEIGHT][ServerSnake.WIDTH];
         for (int i = 1; i < quantity + 1; i++)
         {
-            matrix[ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 2)] = i;
-            matrix[1 + ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 2)] = i;
-            matrix[2 + ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 2)] = i;
+            matrix[ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 1)] = i;
+            matrix[1 + ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 1)] = i;
+            matrix[2 + ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 1)] = i;
+            System.out.println(ServerSnake.WIDTH * i / (quantity + 1));
         }
 
         serverField.setMatrix(matrix);

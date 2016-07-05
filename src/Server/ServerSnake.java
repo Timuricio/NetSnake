@@ -22,7 +22,7 @@ public class ServerSnake
     private static List<ConnectionHandler> handlers;
     private static List<Connection> connections;
     private static ExecutorService executorService;
-    private static boolean isResiveReady = false;
+
     private static volatile List<Field> fields = new ArrayList<>();
 
     public static void main(String[] args) throws IOException, InterruptedException
@@ -53,7 +53,7 @@ public class ServerSnake
 
         executorService = Executors.newFixedThreadPool(playersQuantity);
 
-        while (playersConnected<playersQuantity)
+        while (playersConnected < playersQuantity)
         {
             serverConnection = new Connection(server.accept());
             System.out.println("new connection! " + serverConnection.getSocket().getRemoteSocketAddress());
@@ -63,7 +63,7 @@ public class ServerSnake
             playersConnected++;
             serverFrame.setQuantityConnected(playersConnected);
             Thread.sleep(10);
-            serverConnection.sendNumber(playersConnected+4);
+            serverConnection.sendNumber(playersConnected + 4);
         }
 
         combiner = new ClientFieldCombiner(playersQuantity);
@@ -72,10 +72,7 @@ public class ServerSnake
 
         while (true)
         {
-            isResiveReady = true;
-            ConnectionHandler.class.notifyAll();        // hz
             Thread.sleep(10);
-            isResiveReady = false;
             serverField = combiner.combine(fields);
             //******************************************** add apple
             sendToAllUsers(serverField);
@@ -86,13 +83,13 @@ public class ServerSnake
 
     private static void sendToAllUsers(Field field) throws IOException
     {
-        for(Connection connection : connections)
+        for (Connection connection : connections)
             connection.send(field);
     }
 
     public static void serverClose() throws Exception
     {
-        for(Connection connection : connections)
+        for (Connection connection : connections)
             connection.close();
 
         server.close();
@@ -102,15 +99,5 @@ public class ServerSnake
     public static List<Field> getFields()
     {
         return fields;
-    }
-
-    public static boolean isResiveReady()
-    {
-        return isResiveReady;
-    }
-
-    public static void setIsResiveReady(boolean isResiveReady)
-    {
-        ServerSnake.isResiveReady = isResiveReady;
     }
 }

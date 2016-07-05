@@ -30,26 +30,16 @@ public class ConnectionHandler implements Runnable
             {
                 clientField = connection.resive();
                 ServerSnake.getFields().add(clientField);
-
-                while (!ServerSnake.isResiveReady())
-                {
-                    wait();
-                }
-
-
-
             } catch (IOException e)
             {
                 e.printStackTrace();
             } catch (ClassNotFoundException e)
             {
                 e.printStackTrace();
-            } catch (InterruptedException e)
-            {
-                e.printStackTrace();
             }
         }
     }
+
 
     public Connection getConnection()
     {
