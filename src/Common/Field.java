@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class Field implements Serializable
 {
     private int[][] matrix;
+    private int metka=666;
 
     public Field( int y,int x)
     {
@@ -24,4 +25,13 @@ public class Field implements Serializable
         this.matrix = matrix;
     }
 
+    public int getMetka()
+    {
+        return metka;
+    }
+
+    public void setMetka(int metka)
+    {
+        this.metka = metka;
+    }
 }

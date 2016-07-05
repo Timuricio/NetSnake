@@ -26,9 +26,9 @@ public class ClientFieldCombiner
         int[][] matrix = new int[ServerSnake.HEIGHT][ServerSnake.WIDTH];
         for (int i = 1; i < quantity + 1; i++)
         {
-            matrix[ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 1)] = i;
-            matrix[1 + ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 1)] = i;
-            matrix[2 + ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 1)] = i;
+            matrix[ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 1)] = i+4;
+            matrix[1 + ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 1)] = i+4;
+            matrix[2 + ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 1)] = i+4;
             System.out.println(ServerSnake.WIDTH * i / (quantity + 1));
         }
 
@@ -45,16 +45,16 @@ public class ClientFieldCombiner
             {
                 for (Field field : fields)
                 {
-                    if (field.getMatrix()[y][x] == 1)
+                    if (field.getMatrix()[y][x] == field.getMetka())
                     {
-                        matrixCommon[y][x] = 1;
-                        continue;
+                        matrixCommon[y][x] = field.getMetka();
                     }
                 }
             }
         }
 
         serverField.setMatrix(matrixCommon);
+        serverField.setMetka(666);
 
         return serverField;
     }

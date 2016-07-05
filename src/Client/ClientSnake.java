@@ -17,14 +17,13 @@ public class ClientSnake
 {
     public static void main(String[] args) throws InterruptedException
     {
-        Test t = new Test();
-        Snake snake;
+        Snake2 snake;
         ClientFrame frame = new ClientFrame();
 
-        Field field = new Field(ServerSnake.WIDTH, ServerSnake.HEIGHT);
-        int[][] matrix = field.getMatrix();
+        Field clientField;
+        Field serverField;
 
-        final int time = 200;
+        final int time = 500;
 
         Connection connection;
         String address = "";
@@ -38,22 +37,23 @@ public class ClientSnake
 
             connection = new Connection(client);
             metka = connection.resiveNumber();
-            field = connection.resive();
-            snake = new Snake(metka, field);
+            clientField = connection.resive();
+
+            snake = new Snake2(metka, clientField);
 
             while (true)
             {
                 wait(time);
-                field = snake.move();
 
-                t.test(field);
-                System.out.println();
-                System.out.println();
+                clientField = snake.move();
 
+                connection.send(clientField);
 
-                connection.send(field);
-                field = connection.resive();
-                frame.repaintField(field);
+                serverField = connection.resive();
+
+                System.out.println(serverField.getMetka());
+
+                frame.repaintField(serverField);
             }
 
 

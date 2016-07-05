@@ -2,6 +2,7 @@ package Server;
 
 import Common.Field;
 import Common.Connection;
+import Common.Test;
 
 import java.io.IOException;
 
@@ -12,7 +13,6 @@ public class ConnectionHandler implements Runnable
 {
 
     private Connection connection;
-    private ClientFieldCombiner combiner;
     private Field clientField;
     private Field serverField;
 
@@ -30,6 +30,7 @@ public class ConnectionHandler implements Runnable
             {
                 clientField = connection.resive();
                 ServerSnake.getFields().add(clientField);
+
             } catch (IOException e)
             {
                 e.printStackTrace();

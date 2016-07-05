@@ -84,7 +84,7 @@ public class ClientFrame extends JFrame
         {
             for (int x = 0; x < ServerSnake.WIDTH; x++)
             {
-                if (matrix[y][x] != 1)
+                if (matrix[y][x] == 0)
                 {
                     pixels[y][x].setBackground(Color.decode("#D0D8F6"));
                 } else

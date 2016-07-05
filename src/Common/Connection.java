@@ -29,8 +29,7 @@ public class Connection implements AutoCloseable
 
     public Field resive() throws IOException, ClassNotFoundException
     {
-        Field field = (Field) in.readObject();
-        return field;
+        return (Field) in.readObject();
     }
 
     public void sendNumber(Integer number) throws IOException

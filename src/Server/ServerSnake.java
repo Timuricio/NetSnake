@@ -25,7 +25,7 @@ public class ServerSnake
 
     private static volatile List<Field> fields = new ArrayList<>();
 
-    public static void main(String[] args) throws IOException, InterruptedException
+    public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException
     {
         server = new ServerSocket(22480);
         Connection serverConnection;
@@ -59,7 +59,8 @@ public class ServerSnake
             System.out.println("new connection! " + serverConnection.getSocket().getRemoteSocketAddress());
             connections.add(serverConnection);
             connectionHandler = new ConnectionHandler(serverConnection);
-            executorService.submit(connectionHandler);
+            //executorService.submit(connectionHandler);
+            new Thread(connectionHandler).start();
             playersConnected++;
             serverFrame.setQuantityConnected(playersConnected);
             Thread.sleep(10);
@@ -68,13 +69,14 @@ public class ServerSnake
 
         combiner = new ClientFieldCombiner(playersQuantity);
         serverField = combiner.getServerField();
-        ServerSnake.sendToAllUsers(serverField);
+        sendToAllUsers(serverField);
 
         while (true)
         {
             Thread.sleep(10);
+
             serverField = combiner.combine(fields);
-            //******************************************** add apple
+
             sendToAllUsers(serverField);
             fields.clear();
 
