@@ -2,6 +2,7 @@ package Server;
 
 import Common.Connection;
 import Common.Field;
+import Common.Test;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -21,12 +22,11 @@ public class ServerSnake
     private static ServerSocket server;
     private static List<ConnectionHandler> handlers;
     private static List<Connection> connections;
-    private static ExecutorService executorService;
-
-    private static volatile List<Field> fields = new ArrayList<>();
 
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException
     {
+        List<Field> fields = new ArrayList<>();
+
         server = new ServerSocket(22480);
         Connection serverConnection;
         ConnectionHandler connectionHandler;
@@ -36,7 +36,7 @@ public class ServerSnake
 
         ServerFrame serverFrame = new ServerFrame();
         Field serverField;
-        ClientFieldCombiner combiner = null;
+        ClientFieldCombiner combiner;
 
         String temp = "";
         int playersQuantity = 0;
@@ -51,7 +51,6 @@ public class ServerSnake
 
         serverFrame.setQuantity(playersQuantity);
 
-        executorService = Executors.newFixedThreadPool(playersQuantity);
 
         while (playersConnected < playersQuantity)
         {
@@ -59,8 +58,6 @@ public class ServerSnake
             System.out.println("new connection! " + serverConnection.getSocket().getRemoteSocketAddress());
             connections.add(serverConnection);
             connectionHandler = new ConnectionHandler(serverConnection);
-            //executorService.submit(connectionHandler);
-            new Thread(connectionHandler).start();
             playersConnected++;
             serverFrame.setQuantityConnected(playersConnected);
             Thread.sleep(10);
@@ -68,16 +65,16 @@ public class ServerSnake
         }
 
         combiner = new ClientFieldCombiner(playersQuantity);
-        serverField = combiner.getServerField();
-        sendToAllUsers(serverField);
+        sendToAllUsers(combiner.getServerField());
 
         while (true)
         {
             Thread.sleep(10);
 
-            serverField = combiner.combine(fields);
+            for (Connection c : connections)
+                fields.add(c.resive());
 
-            sendToAllUsers(serverField);
+            sendToAllUsers(combiner.combine(fields));
             fields.clear();
 
         }
@@ -96,10 +93,5 @@ public class ServerSnake
 
         server.close();
         System.exit(0);
-    }
-
-    public static List<Field> getFields()
-    {
-        return fields;
     }
 }

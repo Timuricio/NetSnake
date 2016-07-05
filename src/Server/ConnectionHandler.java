@@ -11,10 +11,7 @@ import java.io.IOException;
  */
 public class ConnectionHandler implements Runnable
 {
-
     private Connection connection;
-    private Field clientField;
-    private Field serverField;
 
     public ConnectionHandler(Connection connection)
     {
@@ -28,19 +25,14 @@ public class ConnectionHandler implements Runnable
         {
             try
             {
-                clientField = connection.resive();
-                ServerSnake.getFields().add(clientField);
+                //ServerSnake.getFields().add(connection.resive());
 
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e)
+            } catch (Exception e)
             {
                 e.printStackTrace();
             }
         }
     }
-
 
     public Connection getConnection()
     {
@@ -52,23 +44,4 @@ public class ConnectionHandler implements Runnable
         this.connection = connection;
     }
 
-    public Field getClientField()
-    {
-        return clientField;
-    }
-
-    public void setClientField(Field clientField)
-    {
-        this.clientField = clientField;
-    }
-
-    public Field getServerField()
-    {
-        return serverField;
-    }
-
-    public void setServerField(Field serverField)
-    {
-        this.serverField = serverField;
-    }
 }

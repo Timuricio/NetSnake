@@ -21,7 +21,6 @@ public class ClientSnake
         ClientFrame frame = new ClientFrame();
 
         Field clientField;
-        Field serverField;
 
         final int time = 500;
 
@@ -32,7 +31,8 @@ public class ClientSnake
         try (Socket client = new Socket())
         {
 
-            address = JOptionPane.showInputDialog(frame, "Enter the server address", "Options", JOptionPane.QUESTION_MESSAGE);
+            //address = JOptionPane.showInputDialog(frame, "Enter the server address", "Options", JOptionPane.QUESTION_MESSAGE);
+            address = "localhost";
             client.connect(new InetSocketAddress(address, 22480));
 
             connection = new Connection(client);
@@ -40,6 +40,7 @@ public class ClientSnake
             clientField = connection.resive();
 
             snake = new Snake2(metka, clientField);
+            frame.addKeyListener(new ClientKeyListener(snake));
 
             while (true)
             {
@@ -49,13 +50,8 @@ public class ClientSnake
 
                 connection.send(clientField);
 
-                serverField = connection.resive();
-
-                System.out.println(serverField.getMetka());
-
-                frame.repaintField(serverField);
+                frame.repaintField(connection.resive());
             }
-
 
         } catch (IOException e)
         {

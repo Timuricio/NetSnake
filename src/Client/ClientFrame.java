@@ -13,7 +13,7 @@ public class ClientFrame extends JFrame
 {
     private JLabel userName,score,time;
     private Pixel[][] pixels;
-    private int[][] matrix;
+
 
     public ClientFrame() throws HeadlessException
     {
@@ -78,7 +78,7 @@ public class ClientFrame extends JFrame
 
     public void repaintField(Field field)
     {
-        matrix = field.getMatrix();
+        int[][] matrix = field.getMatrix();
 
         for (int y = 0; y < ServerSnake.HEIGHT; y++)
         {
