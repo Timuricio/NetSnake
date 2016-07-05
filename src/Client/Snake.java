@@ -16,8 +16,8 @@ public class Snake {
 
     }
 
-    public void searchM() {
-        
+    public void searchMetka(int metka, Field field) {
+
     }
 
 }
