@@ -9,7 +9,7 @@ public class ServerField implements Serializable
 {
     private int[][] matrix;
 
-    public ServerField(int y, int x)
+    public ServerField(int x, int y)
     {
         matrix = new int[x][y];
     }

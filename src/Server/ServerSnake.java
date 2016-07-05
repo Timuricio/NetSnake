@@ -15,8 +15,8 @@ import java.util.concurrent.Executors;
  */
 public class ServerSnake
 {
-    public static final int WIDTH = 40;
-    public static final int HEIGHT = 80;
+    public static final int WIDTH = 80;
+    public static final int HEIGHT = 40;
     private static List<ConnectionHandler> handlers = new ArrayList<>();
     private static ExecutorService executorService;
 

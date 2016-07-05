@@ -5,5 +5,9 @@ package Client;
  */
 public class ClientSnake
 {
+    public static void main(String[] args) throws InterruptedException
+    {
+        ClientFrame frame = new ClientFrame();
 
+    }
 }

@@ -9,7 +9,7 @@ public class ClientField implements Serializable
 {
     private int[][] matrix;
 
-    public ClientField(int y, int x)
+    public ClientField(int x, int y)
     {
         matrix = new int[x][y];
     }
