@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -65,11 +64,11 @@ public class ServerSnake
             serverFrame.setQuantityConnected(playersConnected);
             Thread.sleep(10);
             serverConnection.sendNumber(playersConnected+4);
-
-            combiner = new ClientFieldCombiner(playersQuantity);
-            serverField = combiner.getServerField();
-            ServerSnake.sendToAllUsers(serverField);
         }
+
+        combiner = new ClientFieldCombiner(playersQuantity);
+        serverField = combiner.getServerField();
+        ServerSnake.sendToAllUsers(serverField);
 
         while (true)
         {
