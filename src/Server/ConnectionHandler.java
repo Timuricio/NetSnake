@@ -1,6 +1,7 @@
 package Server;
 
-import Client.ClientField;
+import Common.Field;
+import Common.Connection;
 
 import java.io.IOException;
 
@@ -10,11 +11,11 @@ import java.io.IOException;
 public class ConnectionHandler implements Runnable
 {
     private boolean isSendReady = false;
-    private ServerConnection connection;
-    private ClientField clientField;
-    private ServerField serverField;
+    private Connection connection;
+    private Field clientField;
+    private Field serverField;
 
-    public ConnectionHandler(ServerConnection connection)
+    public ConnectionHandler(Connection connection)
     {
         this.connection = connection;
     }
@@ -50,12 +51,12 @@ public class ConnectionHandler implements Runnable
         }
     }
 
-    public ServerConnection getConnection()
+    public Connection getConnection()
     {
         return connection;
     }
 
-    public void setConnection(ServerConnection connection)
+    public void setConnection(Connection connection)
     {
         this.connection = connection;
     }
@@ -70,22 +71,22 @@ public class ConnectionHandler implements Runnable
         this.isSendReady = isSendReady;
     }
 
-    public ClientField getClientField()
+    public Field getClientField()
     {
         return clientField;
     }
 
-    public void setClientField(ClientField clientField)
+    public void setClientField(Field clientField)
     {
         this.clientField = clientField;
     }
 
-    public ServerField getServerField()
+    public Field getServerField()
     {
         return serverField;
     }
 
-    public void setServerField(ServerField serverField)
+    public void setServerField(Field serverField)
     {
         this.serverField = serverField;
     }

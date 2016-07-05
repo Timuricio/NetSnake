@@ -1,6 +1,4 @@
-package Client;
-
-import Server.ServerField;
+package Common;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -10,29 +8,34 @@ import java.net.Socket;
 /**
  * Created by Timur on 04.07.2016.
  */
-public class ClientConnection implements AutoCloseable
+public class Connection implements AutoCloseable
 {
-    private Integer numberOnMatrix;
     private final Socket socket;
     private final ObjectOutputStream out;
     private final ObjectInputStream in;
 
 
-    public ClientConnection(Socket socket) throws IOException
+    public Connection(Socket socket) throws IOException
     {
         this.socket = socket;
         this.out = new ObjectOutputStream(socket.getOutputStream());
         this.in = new ObjectInputStream(socket.getInputStream());
     }
 
-    public void send(ClientField field) throws IOException
+    public void send(Field field) throws IOException
     {
         out.writeObject(field);
     }
 
-    public ServerField resive() throws IOException, ClassNotFoundException
+    public Field resive() throws IOException, ClassNotFoundException
     {
-        return (ServerField) in.readObject();
+        Field field = (Field) in.readObject();
+        return field;
+    }
+
+    public void sendNumber(Integer number) throws IOException
+    {
+        out.writeObject(number);
     }
 
     public int resiveNumber() throws IOException, ClassNotFoundException
@@ -44,7 +47,6 @@ public class ClientConnection implements AutoCloseable
     {
         return socket;
     }
-
 
 
     @Override

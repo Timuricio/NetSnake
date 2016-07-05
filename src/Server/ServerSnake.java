@@ -1,6 +1,7 @@
 package Server;
 
-import Client.ClientField;
+import Common.Connection;
+import Common.Field;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -19,21 +20,21 @@ public class ServerSnake
     public static final int HEIGHT = 40;
     private static ServerSocket server;
     private static List<ConnectionHandler> handlers;
-    private static List<ServerConnection> connections;
+    private static List<Connection> connections;
     private static ExecutorService executorService;
 
-    private static volatile List<ClientField> fields = new ArrayList<>();
+    private static volatile List<Field> fields = new ArrayList<>();
 
     public static void main(String[] args) throws IOException, InterruptedException
     {
         server = new ServerSocket(22480);
-        ServerConnection serverConnection;
+        Connection serverConnection;
 
         connections = new ArrayList<>();
         handlers = new ArrayList<>();
 
         ServerFrame serverFrame = new ServerFrame();
-        ServerField serverField = new ServerField(HEIGHT,WIDTH);
+        Field serverField = new Field(HEIGHT,WIDTH);
 
         String temp = "";
         int playersQuantity = 0;
@@ -50,7 +51,7 @@ public class ServerSnake
 
         while (playersConnected<playersQuantity)
         {
-            serverConnection = new ServerConnection(server.accept());
+            serverConnection = new Connection(server.accept());
             System.out.println("new connection! " + serverConnection.getSocket().getRemoteSocketAddress());
             connections.add(serverConnection);
             handlers.add(new ConnectionHandler(serverConnection));
@@ -70,7 +71,7 @@ public class ServerSnake
 
     public static void serverClose() throws Exception
     {
-        for(ServerConnection connection : connections)
+        for(Connection connection : connections)
             connection.close();
 
         server.close();

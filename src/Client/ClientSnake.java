@@ -1,5 +1,9 @@
 package Client;
 
+import Common.Connection;
+import Common.Field;
+import Server.ServerSnake;
+
 import javax.swing.*;
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -13,7 +17,11 @@ public class ClientSnake
     public static void main(String[] args) throws InterruptedException
     {
         ClientFrame frame = new ClientFrame();
-        ClientConnection connection;
+
+        Field field = new Field(ServerSnake.WIDTH,ServerSnake.HEIGHT);
+        int[][]matrix = field.getMatrix();
+
+        Connection connection;
         String address = "";
         int metka = 0;
 
@@ -23,12 +31,11 @@ public class ClientSnake
             address = JOptionPane.showInputDialog(frame, "Enter the server address", "Options", JOptionPane.QUESTION_MESSAGE);
             client.connect(new InetSocketAddress(address, 22480));
 
+            connection = new Connection(client);
+            metka = connection.resiveNumber();
+            field = connection.resive();
+            //field.setMatrix();
 
-            connection = new ClientConnection(client);
-
-            metka = (Integer) connection.resiveNumber();
-
-            System.out.println(metka);
 
         } catch (IOException e)
         {
