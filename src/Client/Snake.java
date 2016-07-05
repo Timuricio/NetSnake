@@ -110,7 +110,7 @@ public class Snake {
 
     public void down() {
         moveBody();
-        if(++headY >= matrix.getMatrix().length) isAlive = false;
+        if(++headY >= ServerSnake.HEIGHT) isAlive = false;
 
     }
 
@@ -122,7 +122,7 @@ public class Snake {
 
     public void right() {
         moveBody();
-        if(++headX >= matrix.getMatrix().length) isAlive = false;
+        if(++headX >= ServerSnake.WIDTH) isAlive = false;
 
     }
 
