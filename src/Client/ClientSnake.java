@@ -34,7 +34,6 @@ public class ClientSnake
             connection = new Connection(client);
             metka = connection.resiveNumber();
             field = connection.resive();
-            //field.setMatrix();
 
 
         } catch (IOException e)
