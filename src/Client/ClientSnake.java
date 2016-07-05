@@ -16,6 +16,7 @@ public class ClientSnake
 {
     public static void main(String[] args) throws InterruptedException
     {
+        Snake snake;
         ClientFrame frame = new ClientFrame();
 
         Field field = new Field(ServerSnake.WIDTH,ServerSnake.HEIGHT);
@@ -34,7 +35,7 @@ public class ClientSnake
             connection = new Connection(client);
             metka = connection.resiveNumber();
             field = connection.resive();
-
+            snake = new Snake(metka,field);
 
         } catch (IOException e)
         {
