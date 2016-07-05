@@ -5,6 +5,8 @@ import Common.Field;
 import Server.ServerSnake;
 
 import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -19,8 +21,10 @@ public class ClientSnake
         Snake snake;
         ClientFrame frame = new ClientFrame();
 
-        Field field = new Field(ServerSnake.WIDTH,ServerSnake.HEIGHT);
-        int[][]matrix = field.getMatrix();
+        Field field = new Field(ServerSnake.WIDTH, ServerSnake.HEIGHT);
+        int[][] matrix = field.getMatrix();
+
+        final int time = 200;
 
         Connection connection;
         String address = "";
@@ -35,7 +39,19 @@ public class ClientSnake
             connection = new Connection(client);
             metka = connection.resiveNumber();
             field = connection.resive();
-            snake = new Snake(metka,field);
+            snake = new Snake(metka, field);
+
+
+
+            while (true)
+            {
+                wait(time);
+                field = snake.move();
+                connection.send(field);
+                field = connection.resive();
+                frame.repaintField(field);
+            }
+
 
         } catch (IOException e)
         {
@@ -46,5 +62,10 @@ public class ClientSnake
         }
 
 
+    }
+
+    private static void wait(int time) throws InterruptedException
+    {
+        Thread.sleep(time);
     }
 }

@@ -1,5 +1,6 @@
 package Client;
 
+import Common.Field;
 import Server.ServerSnake;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ public class ClientFrame extends JFrame
 {
     private JLabel userName,score,time;
     private Pixel[][] pixels;
+    private int[][] matrix;
 
     public ClientFrame() throws HeadlessException
     {
@@ -59,33 +61,35 @@ public class ClientFrame extends JFrame
 
     private void paintField()
     {
-        pixels = new Pixel[ServerSnake.WIDTH][ServerSnake.HEIGHT];
+        pixels = new Pixel[ServerSnake.HEIGHT][ServerSnake.WIDTH];
 
-        for (int x = 0; x < ServerSnake.WIDTH; x++)
+        for (int y = 0; y < ServerSnake.HEIGHT; y++)
         {
-            for (int y = 0; y < ServerSnake.HEIGHT; y++)
+            for (int x = 0; x < ServerSnake.WIDTH; x++)
             {
-                pixels[x][y] = new Pixel(Color.decode("#D0D8F6"));
+                pixels[y][x] = new Pixel(Color.decode("#D0D8F6"));
 
-                pixels[x][y].setBounds(5 + x * Pixel.W, 30 + y * Pixel.H, Pixel.W, Pixel.H);
-                getContentPane().add(pixels[x][y]);
+                pixels[y][x].setBounds(5 + x * Pixel.W, 30 + y * Pixel.H, Pixel.W, Pixel.H);
+                getContentPane().add(pixels[y][x]);
             }
         }
 
     }
 
-    public void repaintField(int[][] matrix)
+    public void repaintField(Field field)
     {
-        for (int x = 0; x < ServerSnake.WIDTH; x++)
+        matrix = field.getMatrix();
+
+        for (int y = 0; y < ServerSnake.HEIGHT; y++)
         {
-            for (int y = 0; y < ServerSnake.HEIGHT; y++)
+            for (int x = 0; x < ServerSnake.WIDTH; x++)
             {
-                if (matrix[x][y] != 1)
+                if (matrix[y][x] != 1)
                 {
-                    pixels[x][y].setBackground(Color.decode("#D0D8F6"));
+                    pixels[y][x].setBackground(Color.decode("#D0D8F6"));
                 } else
                 {
-                    pixels[x][y].setBackground(Color.BLACK);
+                    pixels[y][x].setBackground(Color.BLACK);
                 }
 
                 getContentPane().repaint();

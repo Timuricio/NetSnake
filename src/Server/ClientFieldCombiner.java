@@ -56,4 +56,9 @@ public class ClientFieldCombiner
 
         return serverField;
     }
+
+    public Field getServerField()
+    {
+        return serverField;
+    }
 }

@@ -10,8 +10,9 @@ import java.io.IOException;
  */
 public class ConnectionHandler implements Runnable
 {
-    private boolean isSendReady = false;
+
     private Connection connection;
+    private ClientFieldCombiner combiner;
     private Field clientField;
     private Field serverField;
 
@@ -28,14 +29,13 @@ public class ConnectionHandler implements Runnable
             try
             {
                 clientField = connection.resive();
+                ServerSnake.getFields().add(clientField);
 
-                while (!isSendReady)
+                while (!ServerSnake.isResiveReady())
                 {
                     wait();
                 }
 
-                connection.send(serverField);
-                isSendReady = false;
 
 
             } catch (IOException e)
@@ -59,16 +59,6 @@ public class ConnectionHandler implements Runnable
     public void setConnection(Connection connection)
     {
         this.connection = connection;
-    }
-
-    public boolean isSendReady()
-    {
-        return isSendReady;
-    }
-
-    public void setIsSendReady(boolean isSendReady)
-    {
-        this.isSendReady = isSendReady;
     }
 
     public Field getClientField()

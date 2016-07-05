@@ -11,7 +11,7 @@ public class Field implements Serializable
 
     public Field(int x, int y)
     {
-        matrix = new int[x][y];
+        matrix = new int[y][x];
     }
 
     public int[][] getMatrix()
@@ -23,4 +23,5 @@ public class Field implements Serializable
     {
         this.matrix = matrix;
     }
+
 }
