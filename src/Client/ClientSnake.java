@@ -21,37 +21,6 @@ public class ClientSnake
         Snake snake;
         ClientFrame frame = new ClientFrame();
 
-        frame.addKeyListener(new KeyListener()
-        {
-            @Override
-            public void keyTyped(KeyEvent e)
-            {
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e)
-            {
-                if (e.getKeyCode() == KeyEvent.VK_LEFT && snake.Ar[0][0] - snake.Ar[1][0] != 1 )
-                    snake.setDirection(Direction.LEFT);
-                    //Если "стрелка вправо" - сдвинуть фигурку вправо
-                else if (e.getKeyCode() == KeyEvent.VK_RIGHT && snake.Ar[0][0] - snake.Ar[1][0] != -1)
-                    snake.setDirection(Direction.RIGHT);
-                    //Если "стрелка вверх" - сдвинуть фигурку вверх
-                else if (e.getKeyCode() == KeyEvent.VK_UP && snake.Ar[0][1] - snake.Ar[1][1] != 1)
-                    snake.setDirection(Direction.UP);
-                    //Если "стрелка вниз" - сдвинуть фигурку вниз
-                else if (e.getKeyCode() == KeyEvent.VK_DOWN && snake.Ar[0][1] - snake.Ar[1][1] != -1)
-                    snake.setDirection(Direction.DOWN);
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e)
-            {
-
-            }
-        });
-
         Field field = new Field(ServerSnake.WIDTH, ServerSnake.HEIGHT);
         int[][] matrix = field.getMatrix();
 
@@ -71,6 +40,8 @@ public class ClientSnake
             metka = connection.resiveNumber();
             field = connection.resive();
             snake = new Snake(metka, field);
+
+
 
             while (true)
             {
