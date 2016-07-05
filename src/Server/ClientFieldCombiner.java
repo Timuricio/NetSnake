@@ -17,7 +17,7 @@ public class ClientFieldCombiner
     {
         this.quantity = quantity;
         matrixCommon = new int[ServerSnake.HEIGHT][ServerSnake.WIDTH];
-        serverField = new Field(ServerSnake.HEIGHT, ServerSnake.WIDTH);
+        serverField = new Field(ServerSnake.WIDTH,ServerSnake.HEIGHT);
     }
 
     private Field init(int quantity)
@@ -39,7 +39,7 @@ public class ClientFieldCombiner
     {
         for (int y = 0; y < ServerSnake.HEIGHT; y++)
         {
-            for (int x = 0; x < ServerSnake.HEIGHT; x++)
+            for (int x = 0; x < ServerSnake.WIDTH; x++)
             {
                 for (Field field : fields)
                 {

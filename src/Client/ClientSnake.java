@@ -5,8 +5,6 @@ import Common.Field;
 import Server.ServerSnake;
 
 import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -21,7 +19,7 @@ public class ClientSnake
         Snake snake;
         ClientFrame frame = new ClientFrame();
 
-        Field field = new Field(ServerSnake.WIDTH, ServerSnake.HEIGHT);
+        Field field = new Field(ServerSnake.WIDTH,ServerSnake.HEIGHT);
         int[][] matrix = field.getMatrix();
 
         final int time = 200;
