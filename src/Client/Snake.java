@@ -39,7 +39,29 @@ public class Snake {
 
         matrix = new Field(matrix.getMatrix().length, matrix.getMatrix().length);
         fillField();
-        // some code
+        if (direction.equals(direction.LEFT)) {
+
+
+            left();
+
+        } else if (direction.equals(direction.RIGHT)) {
+
+
+            right();
+
+
+        } else if (direction.equals(direction.UP)) {
+
+
+            up();
+
+
+        } else if (direction.equals(direction.DOWN)) {
+
+            down();
+
+
+        }
 
         return matrix;
 
@@ -80,27 +102,27 @@ public class Snake {
     }
 
     public void up() {
+        moveBody();
         if(--headY < 0) isAlive = false;
 
-        moveBody();
     }
 
     public void down() {
+        moveBody();
         if(++headY >= matrix.getMatrix().length) isAlive = false;
 
-        moveBody();
     }
 
     public void left() {
+        moveBody();
         if(--headX < 0) isAlive = false;
 
-        moveBody();
     }
 
     public void right() {
+        moveBody();
         if(++headX >= matrix.getMatrix().length) isAlive = false;
 
-        moveBody();
     }
 
 }
