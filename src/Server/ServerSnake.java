@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -22,19 +23,21 @@ public class ServerSnake
     private static List<ConnectionHandler> handlers;
     private static List<Connection> connections;
     private static ExecutorService executorService;
-
+    private static boolean isResiveReady = false;
     private static volatile List<Field> fields = new ArrayList<>();
 
     public static void main(String[] args) throws IOException, InterruptedException
     {
         server = new ServerSocket(22480);
         Connection serverConnection;
+        ConnectionHandler connectionHandler;
 
         connections = new ArrayList<>();
         handlers = new ArrayList<>();
 
         ServerFrame serverFrame = new ServerFrame();
-        Field serverField = new Field(HEIGHT,WIDTH);
+        Field serverField;
+        ClientFieldCombiner combiner = null;
 
         String temp = "";
         int playersQuantity = 0;
@@ -45,28 +48,47 @@ public class ServerSnake
         }
 
         playersQuantity = Integer.valueOf(temp);
+
+
         serverFrame.setQuantity(playersQuantity);
 
-        executorService = Executors.newFixedThreadPool(5);
+        executorService = Executors.newFixedThreadPool(playersQuantity);
 
         while (playersConnected<playersQuantity)
         {
             serverConnection = new Connection(server.accept());
             System.out.println("new connection! " + serverConnection.getSocket().getRemoteSocketAddress());
             connections.add(serverConnection);
-            handlers.add(new ConnectionHandler(serverConnection));
+            connectionHandler = new ConnectionHandler(serverConnection);
+            executorService.submit(connectionHandler);
             playersConnected++;
             serverFrame.setQuantityConnected(playersConnected);
             Thread.sleep(10);
             serverConnection.sendNumber(playersConnected+4);
+
+            combiner = new ClientFieldCombiner(playersQuantity);
+            serverField = combiner.getServerField();
+            ServerSnake.sendToAllUsers(serverField);
         }
 
-
-
-        //while (true)
+        while (true)
         {
-            System.out.println("All users connected!");
+            isResiveReady = true;
+            ConnectionHandler.class.notifyAll();        // hz
+            Thread.sleep(10);
+            isResiveReady = false;
+            serverField = combiner.combine(fields);
+            //******************************************** add apple
+            sendToAllUsers(serverField);
+            fields.clear();
+
         }
+    }
+
+    private static void sendToAllUsers(Field field) throws IOException
+    {
+        for(Connection connection : connections)
+            connection.send(field);
     }
 
     public static void serverClose() throws Exception
@@ -76,5 +98,20 @@ public class ServerSnake
 
         server.close();
         System.exit(0);
+    }
+
+    public static List<Field> getFields()
+    {
+        return fields;
+    }
+
+    public static boolean isResiveReady()
+    {
+        return isResiveReady;
+    }
+
+    public static void setIsResiveReady(boolean isResiveReady)
+    {
+        ServerSnake.isResiveReady = isResiveReady;
     }
 }
