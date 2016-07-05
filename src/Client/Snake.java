@@ -45,6 +45,7 @@ public class Snake {
 
             left();
 
+
         } else if (direction.equals(direction.RIGHT)) {
 
 
@@ -58,6 +59,7 @@ public class Snake {
 
 
         } else if (direction.equals(direction.DOWN)) {
+
 
             down();
 
@@ -84,7 +86,7 @@ public class Snake {
         }
     }
 
-    public void moveBody() {
+    public void moveBody() { // Передвижение тела змеи
 
         for (int t, i = size - 1; i > 0; i--) {
 
@@ -96,7 +98,7 @@ public class Snake {
         }
     }
 
-    public void fillField() {
+    public void fillField() { // Заполнение матрицы для сервера
         for (int i = 0; i < size; i++) {
             matrix.getMatrix()[Ar[i][0]][Ar[i][1]] = 1;
         }
