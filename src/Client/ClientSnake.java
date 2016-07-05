@@ -2,7 +2,6 @@ package Client;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
@@ -16,17 +15,20 @@ public class ClientSnake
         ClientFrame frame = new ClientFrame();
         ClientConnection connection;
         String address = "";
+        int metka = 0;
 
-        try(Socket client = new Socket();
-        )
+        try (Socket client = new Socket())
         {
 
-            do{
-                address = JOptionPane.showInputDialog(frame, "Enter the server address", "Options", JOptionPane.QUESTION_MESSAGE);
-                client.connect(new InetSocketAddress(address, 41000));
-            }while (client.isConnected());
+            address = JOptionPane.showInputDialog(frame, "Enter the server address", "Options", JOptionPane.QUESTION_MESSAGE);
+            client.connect(new InetSocketAddress(address, 22480));
+
 
             connection = new ClientConnection(client);
+
+            metka = (Integer) connection.resiveNumber();
+
+            System.out.println(metka);
 
         } catch (IOException e)
         {

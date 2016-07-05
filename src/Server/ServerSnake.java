@@ -55,13 +55,16 @@ public class ServerSnake
             connections.add(serverConnection);
             handlers.add(new ConnectionHandler(serverConnection));
             playersConnected++;
+            serverFrame.setQuantityConnected(playersConnected);
             Thread.sleep(10);
             serverConnection.sendNumber(playersConnected+4);
         }
 
-        while (true)
-        {
 
+
+        //while (true)
+        {
+            System.out.println("All users connected!");
         }
     }
 
@@ -71,5 +74,6 @@ public class ServerSnake
             connection.close();
 
         server.close();
+        System.exit(0);
     }
 }
