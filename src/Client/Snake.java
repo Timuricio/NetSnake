@@ -1,6 +1,7 @@
 package Client;
 
 import Common.Field;
+import Server.ServerSnake;
 
 import java.util.Arrays;
 
@@ -37,7 +38,7 @@ public class Snake {
 
     public Field move() {
 
-        matrix = new Field(matrix.getMatrix().length, matrix.getMatrix().length);
+        matrix = new Field(ServerSnake.HEIGHT, ServerSnake.WIDTH);
         fillField();
         if (direction.equals(direction.LEFT)) {
 
@@ -68,8 +69,8 @@ public class Snake {
     }
 
     public void searchMetka(Field field) { // Поиск меток в матрице
-        for (int y = 0; y < field.getMatrix().length; y++) {
-            for (int x = 0; x < field.getMatrix().length; x++) {
+        for (int y = 0; y < ServerSnake.HEIGHT; y++) {
+            for (int x = 0; x < ServerSnake.WIDTH; x++) {
                 if (field.getMatrix()[y][x] == metka) {
                     Ar[y][x] = metka;
                     size++;
