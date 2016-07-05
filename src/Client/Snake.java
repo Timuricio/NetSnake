@@ -12,8 +12,12 @@ public class Snake {
 
     }
 
-    public void move {
+    public void move(int metka, Field field) {
 
+    }
+
+    public void searchM() {
+        
     }
 
 }
