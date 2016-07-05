@@ -17,19 +17,23 @@ public class ServerSnake
 {
     public static final int WIDTH = 80;
     public static final int HEIGHT = 40;
-    private static List<ConnectionHandler> handlers = new ArrayList<>();
+    private static ServerSocket server;
+    private static List<ConnectionHandler> handlers;
+    private static List<ServerConnection> connections;
     private static ExecutorService executorService;
 
     private static volatile List<ClientField> fields = new ArrayList<>();
 
     public static void main(String[] args) throws IOException, InterruptedException
     {
-        ServerSocket server = new ServerSocket(22480);
+        server = new ServerSocket(22480);
         ServerConnection serverConnection;
+
+        connections = new ArrayList<>();
+        handlers = new ArrayList<>();
+
         ServerFrame serverFrame = new ServerFrame();
         ServerField serverField = new ServerField(HEIGHT,WIDTH);
-
-
 
         String temp = "";
         int playersQuantity = 0;
@@ -48,6 +52,7 @@ public class ServerSnake
         {
             serverConnection = new ServerConnection(server.accept());
             System.out.println("new connection! " + serverConnection.getSocket().getRemoteSocketAddress());
+            connections.add(serverConnection);
             handlers.add(new ConnectionHandler(serverConnection));
             playersConnected++;
             Thread.sleep(10);
@@ -58,5 +63,13 @@ public class ServerSnake
         {
 
         }
+    }
+
+    public static void serverClose() throws Exception
+    {
+        for(ServerConnection connection : connections)
+            connection.close();
+
+        server.close();
     }
 }

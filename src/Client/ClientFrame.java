@@ -10,13 +10,24 @@ import java.awt.*;
  */
 public class ClientFrame extends JFrame
 {
-    private JLabel name,score,time;
+    private JLabel userName,score,time;
     private Pixel[][] pixels;
 
     public ClientFrame() throws HeadlessException
     {
         super("ClientNetSnake");
         initComponents();
+        userName.setText(requestUserName());
+    }
+
+    private String requestUserName()
+    {
+        String name = JOptionPane.showInputDialog(this, "Enter the user name", "Options", JOptionPane.QUESTION_MESSAGE);
+
+        if (name == null||name.isEmpty())
+            name = "NoName";
+
+        return name;
     }
 
     private void initComponents(){
@@ -28,9 +39,9 @@ public class ClientFrame extends JFrame
 
         setLayout(null);
 
-        name = new JLabel("Name - ########");
-        name.setBounds(5,5,200,20);
-        getContentPane().add(name);
+        userName = new JLabel("Name - ########");
+        userName.setBounds(5, 5, 200, 20);
+        getContentPane().add(userName);
 
         score = new JLabel("Score - 0");
         score.setBounds(210,5,200,20);
@@ -65,8 +76,61 @@ public class ClientFrame extends JFrame
 
     public void repaintField(int[][] matrix)
     {
+        for (int x = 0; x < ServerSnake.WIDTH; x++)
+        {
+            for (int y = 0; y < ServerSnake.HEIGHT; y++)
+            {
+                if (matrix[x][y] != 1)
+                {
+                    pixels[x][y].setBackground(Color.decode("#D0D8F6"));
+                } else
+                {
+                    pixels[x][y].setBackground(Color.BLACK);
+                }
+
+                getContentPane().repaint();
+            }
+        }
 
     }
 
+    public JLabel getUserName()
+    {
+        return userName;
+    }
 
+    public void setUserName(JLabel userName)
+    {
+        this.userName = userName;
+    }
+
+    public JLabel getScore()
+    {
+        return score;
+    }
+
+    public void setScore(JLabel score)
+    {
+        this.score = score;
+    }
+
+    public JLabel getTime()
+    {
+        return time;
+    }
+
+    public void setTime(JLabel time)
+    {
+        this.time = time;
+    }
+
+    public Pixel[][] getPixels()
+    {
+        return pixels;
+    }
+
+    public void setPixels(Pixel[][] pixels)
+    {
+        this.pixels = pixels;
+    }
 }
