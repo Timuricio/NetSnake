@@ -8,9 +8,9 @@ import java.awt.event.KeyListener;
  */
 public class ClientKeyListener implements KeyListener
 {
-    Snake2 snake;
+    Snake snake;
 
-    public ClientKeyListener(Snake2 snake)
+    public ClientKeyListener(Snake snake)
     {
         this.snake = snake;
     }

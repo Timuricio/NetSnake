@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 public class Snake {
     int[][] Ar;
-    int size = 0;  // Длинна змеи
+    int size;  // Длинна змеи
     boolean isAlive = false; // Статус змеи
     int headY; // Координаты головы змеи
     int headX; //
@@ -30,8 +30,9 @@ public class Snake {
     public Snake(int metka, Field field) {
         this.metka = metka;
         matrix = field;
+        size = -1;
         Ar = new int[100][2];
-        searchMetka(matrix);
+        searchMetka();
         direction = SnakeDirection.UP;
 
     }
@@ -39,6 +40,7 @@ public class Snake {
     public Field move() {
 
         matrix = new Field(ServerSnake.HEIGHT, ServerSnake.WIDTH);
+        matrix.setMetka(metka);
         fillField();
         if (direction.equals(direction.LEFT)) {
 
@@ -70,12 +72,13 @@ public class Snake {
 
     }
 
-    public void searchMetka(Field field) { // Поиск меток в матрице
+    public void searchMetka() { // Поиск меток в матрице
         for (int y = 0; y < ServerSnake.HEIGHT; y++) {
             for (int x = 0; x < ServerSnake.WIDTH; x++) {
-                if (field.getMatrix()[y][x] == metka) {
-                    Ar[y][x] = metka;
+                if (matrix.getMatrix()[y][x] == metka) {
                     size++;
+                    Ar[size][0] = y;
+                    Ar[size][1] = x;
                     if (!isAlive) {
                         headY = y;
                         headX = x;
@@ -100,31 +103,43 @@ public class Snake {
 
     public void fillField() { // Заполнение матрицы для сервера
         for (int i = 0; i < size; i++) {
-            matrix.getMatrix()[Ar[i][0]][Ar[i][1]] = 1;
+            matrix.getMatrix()[Ar[i][0]][Ar[i][1]] = metka;
         }
     }
 
     public void up() {
         moveBody();
         if(--headY < 0) isAlive = false;
+        Ar[0][0] = headY;
+        Ar[0][1] = headX;
+        matrix.getMatrix()[headY][headX] = metka;
 
     }
 
     public void down() {
         moveBody();
         if(++headY >= ServerSnake.HEIGHT) isAlive = false;
+        Ar[0][0] = headY;
+        Ar[0][1] = headX;
+        matrix.getMatrix()[headY][headX] = metka;
 
     }
 
     public void left() {
         moveBody();
         if(--headX < 0) isAlive = false;
+        Ar[0][0] = headY;
+        Ar[0][1] = headX;
+        matrix.getMatrix()[headY][headX] = metka;
 
     }
 
     public void right() {
         moveBody();
         if(++headX >= ServerSnake.WIDTH) isAlive = false;
+        Ar[0][0] = headY;
+        Ar[0][1] = headX;
+        matrix.getMatrix()[headY][headX] = metka;
 
     }
 

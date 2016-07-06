@@ -2,10 +2,7 @@ package Client;
 
 import Common.Connection;
 import Common.Field;
-import Common.Test;
-import Server.ServerSnake;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -17,12 +14,12 @@ public class ClientSnake
 {
     public static void main(String[] args) throws InterruptedException
     {
-        Snake2 snake;
+        Snake snake;
         ClientFrame frame = new ClientFrame();
 
         Field clientField;
 
-        final int time = 500;
+        final int time = 100;
 
         Connection connection;
         String address = "";
@@ -39,7 +36,7 @@ public class ClientSnake
             metka = connection.resiveNumber();
             clientField = connection.resive();
 
-            snake = new Snake2(metka, clientField);
+            snake = new Snake(metka, clientField);
             frame.addKeyListener(new ClientKeyListener(snake));
 
             while (true)
@@ -50,7 +47,9 @@ public class ClientSnake
 
                 connection.send(clientField);
 
-                frame.repaintField(connection.resive());
+                Field f = connection.resive();
+
+                frame.repaintField(f);
             }
 
         } catch (IOException e)

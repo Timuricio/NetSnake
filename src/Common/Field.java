@@ -10,6 +10,7 @@ public class Field implements Serializable
     private int[][] matrix;
     private int metka=666;
 
+
     public Field( int y,int x)
     {
         matrix = new int[y][x];
