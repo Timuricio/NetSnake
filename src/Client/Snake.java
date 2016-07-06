@@ -70,7 +70,6 @@ public class Snake {
 
 
         }
-        checkApple(field);
         eatApple(field);
         fillField();
         return matrix;
