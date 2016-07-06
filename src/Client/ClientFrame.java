@@ -5,6 +5,7 @@ import Server.ServerSnake;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 /**
  * Created by Timur on 04.07.2016.
@@ -14,7 +15,6 @@ public class ClientFrame extends JFrame
     private JLabel userName, score, time;
     private Pixel[][] pixels;
     private ImageIcon[][] icons;
-
 
     public ClientFrame() throws HeadlessException
     {
@@ -70,13 +70,11 @@ public class ClientFrame extends JFrame
         {
             for (int x = 0; x < ServerSnake.WIDTH; x++)
             {
-
                 pixels[y][x] = new Pixel(Color.decode("#D0D8F6"));
                 pixels[y][x].setBounds(5 + x * Pixel.W, 30 + y * Pixel.H, Pixel.W, Pixel.H);
                 getContentPane().add(pixels[y][x]);
             }
         }
-
     }
 
     public void repaintField(Field field)
@@ -101,7 +99,6 @@ public class ClientFrame extends JFrame
                 getContentPane().repaint();
             }
         }
-
     }
 
     public JLabel getUserName()

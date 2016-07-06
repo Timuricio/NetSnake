@@ -2,6 +2,7 @@ package Server;
 
 import Common.Connection;
 import Common.Field;
+import Common.Test;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -69,6 +70,9 @@ public class ServerSnake
                 }
             }
             //resiveFromAll();
+
+            Test.test(fields.get(0));//TEST************************************************
+            System.out.println();
 
             sendToAllUsers(combiner.combine(fields));
             fields.clear();

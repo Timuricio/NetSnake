@@ -3,6 +3,7 @@ package Server;
 import Common.Field;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Timur on 04.07.2016.
@@ -11,6 +12,7 @@ public class ClientFieldCombiner
 {
     private int[][] matrixCommon;
     private Field serverField;
+    private Random random = new Random();
 
     public ClientFieldCombiner(int quantity)
     {
@@ -26,6 +28,14 @@ public class ClientFieldCombiner
             matrix[ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 1)] = i+4;
             matrix[1 + ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 1)] = i+4;
             matrix[2 + ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 1)] = i+4;
+
+            matrix[3][3] = 1;
+            /*
+            do
+            {
+
+            }while ();*/
+
         }
         serverField.setMatrix(matrix);
         return serverField;
