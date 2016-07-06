@@ -3,6 +3,7 @@ package Client;
 import Common.Connection;
 import Common.Field;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -27,8 +28,8 @@ public class ClientSnake
 
         try (Socket client = new Socket())
         {
-            //address = JOptionPane.showInputDialog(frame, "Enter the server address", "Options", JOptionPane.QUESTION_MESSAGE);
-            address = "localhost";
+            address = JOptionPane.showInputDialog(frame, "Enter the server address", "Options", JOptionPane.QUESTION_MESSAGE);
+            //address = "localhost";
             client.connect(new InetSocketAddress(address, 22480));
 
             connection = new Connection(client);
