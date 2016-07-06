@@ -19,7 +19,7 @@ public class Apple
 
 
         do {
-            y = random.nextInt(ServerSnake.WIDTH - 1);
+            y = random.nextInt(ServerSnake.HEIGHT - 1);
             x = random.nextInt(ServerSnake.WIDTH - 1);
         } while (field.getMatrix()[y][x] != 0);
 
