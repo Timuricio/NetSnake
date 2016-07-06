@@ -21,7 +21,7 @@ public class ClientSnake
 
         Field clientField;
 
-        final int time = 500;
+        final int time = 300;
 
         Connection connection;
         String address = "";
@@ -45,6 +45,9 @@ public class ClientSnake
                 wait(time);
 
                 clientField = snake.move(clientField);
+
+                Test.test(clientField);
+                System.out.println();
 
                 connection.send(clientField);
 
