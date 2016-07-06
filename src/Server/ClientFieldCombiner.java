@@ -52,13 +52,13 @@ public class ClientFieldCombiner
             {
                 for (Field field : fields)
                 {
-                    if (field.getMatrix()[y][x] == field.getMetka())
-                    {
-                        matrixCommon[y][x] = field.getMetka();
-                    }
-                    else if(field.getMatrix()[y][x] == 1)
+                    if (field.getMatrix()[y][x] == 1)
                     {
                         matrixCommon[y][x] = 1;
+                    }
+                    else if(field.getMatrix()[y][x] == field.getMetka())
+                    {
+                        matrixCommon[y][x] = field.getMetka();
                     }
                 }
             }
