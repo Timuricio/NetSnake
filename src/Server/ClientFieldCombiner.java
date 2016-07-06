@@ -53,11 +53,11 @@ public class ClientFieldCombiner
             {
                 for (Field field : fields)
                 {
-                    if (field.getMatrix()[y][x] == 1 && !appleEaten)
+                    if (field.getMatrix()[y][x] == 1) //&& !appleEaten)
                     {
-                        if (matrixCommon[y][x] != 1 && matrixCommon[y][x] != 0)
+                        /*if (matrixCommon[y][x] != 1 && matrixCommon[y][x] != 0)
                             appleEaten = true;
-                        else
+                        else*/
                             matrixCommon[y][x] = 1;
                     } else if (field.getMatrix()[y][x] == field.getMetka())
                     {
