@@ -10,13 +10,14 @@ import java.util.Random;
  */
 public class ClientFieldCombiner
 {
+    private boolean appleEaten = false;
     private int[][] matrixCommon;
     private Field serverField;
     private Random random = new Random();
 
     public ClientFieldCombiner(int quantity)
     {
-        serverField = new Field(ServerSnake.HEIGHT,ServerSnake.WIDTH);
+        serverField = new Field(ServerSnake.HEIGHT, ServerSnake.WIDTH);
         init(quantity);
     }
 
@@ -25,11 +26,11 @@ public class ClientFieldCombiner
         int[][] matrix = new int[ServerSnake.HEIGHT][ServerSnake.WIDTH];
         for (int i = 1; i < quantity + 1; i++)
         {
-            matrix[ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 1)] = i+4;
-            matrix[1 + ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 1)] = i+4;
-            matrix[2 + ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 1)] = i+4;
+            matrix[ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 1)] = i + 4;
+            matrix[1 + ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 1)] = i + 4;
+            matrix[2 + ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 1)] = i + 4;
 
-            matrix[3][3] = 1;
+            matrix[38][78] = 1;
             /*
             do
             {
@@ -43,7 +44,7 @@ public class ClientFieldCombiner
 
     public Field combine(List<Field> fields)
     {
-        Field serverField = new Field(ServerSnake.HEIGHT,ServerSnake.WIDTH);
+        Field serverField = new Field(ServerSnake.HEIGHT, ServerSnake.WIDTH);
         matrixCommon = new int[ServerSnake.HEIGHT][ServerSnake.WIDTH];
 
         for (int y = 0; y < ServerSnake.HEIGHT; y++)
@@ -52,17 +53,21 @@ public class ClientFieldCombiner
             {
                 for (Field field : fields)
                 {
-                    if (field.getMatrix()[y][x] == 1)
+                    if (field.getMatrix()[y][x] == 1 && !appleEaten)
                     {
-                        matrixCommon[y][x] = 1;
-                    }
-                    else if(field.getMatrix()[y][x] == field.getMetka())
+                        if (matrixCommon[y][x] != 1 && matrixCommon[y][x] != 0)
+                            appleEaten = true;
+                        else
+                            matrixCommon[y][x] = 1;
+                    } else if (field.getMatrix()[y][x] == field.getMetka())
                     {
                         matrixCommon[y][x] = field.getMetka();
                     }
                 }
             }
         }
+
+        appleEaten = false;
 
         serverField.setMatrix(matrixCommon);
         serverField.setMetka(666);

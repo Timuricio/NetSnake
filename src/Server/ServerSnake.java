@@ -26,9 +26,6 @@ public class ServerSnake
         server = new ServerSocket(22480);
         Connection serverConnection;
 
-        connections = new ArrayList<>();
-
-
         ServerFrame serverFrame = new ServerFrame();
         ClientFieldCombiner combiner;
 
@@ -42,6 +39,8 @@ public class ServerSnake
 
         playersQuantity = Integer.valueOf(temp);
         serverFrame.setQuantity(playersQuantity);
+
+        connections = new ArrayList<>();
 
         while (playersConnected < playersQuantity)
         {
