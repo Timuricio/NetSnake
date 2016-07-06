@@ -56,6 +56,10 @@ public class ClientFieldCombiner
                     {
                         matrixCommon[y][x] = field.getMetka();
                     }
+                    else if(field.getMatrix()[y][x] == 1)
+                    {
+                        matrixCommon[y][x] = 1;
+                    }
                 }
             }
         }

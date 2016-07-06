@@ -37,8 +37,6 @@ public class ClientSnake
             metka = connection.resiveNumber();
             clientField = connection.resive();
 
-            Test.test(clientField);//TEST************************************************
-
             snake = new Snake(metka, clientField);
             frame.addKeyListener(new ClientKeyListener(snake));
 
@@ -48,15 +46,9 @@ public class ClientSnake
 
                 clientField = snake.move(clientField);
 
-                Test.test(clientField);//TEST************************************************
-                System.out.println();
-
                 connection.send(clientField);
 
                 Field f = connection.resive();
-
-                Test.test(f);//TEST************************************************
-                System.out.println();
 
                 frame.repaintField(f);
             }
