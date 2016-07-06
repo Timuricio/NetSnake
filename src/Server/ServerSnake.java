@@ -2,7 +2,6 @@ package Server;
 
 import Common.Connection;
 import Common.Field;
-import Common.Test;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -15,6 +14,7 @@ import java.util.List;
  */
 public class ServerSnake
 {
+    public static Object monitor = new Object();
     public static final int WIDTH = 80;
     public static final int HEIGHT = 40;
     private static ServerSocket server;
@@ -48,6 +48,7 @@ public class ServerSnake
             serverConnection = new Connection(server.accept());
             System.out.println("new connection! " + serverConnection.getSocket().getRemoteSocketAddress());
             connections.add(serverConnection);
+            new ReciverThread(serverConnection).start();
             playersConnected++;
             serverFrame.setQuantityConnected(playersConnected);
             Thread.sleep(10);
@@ -60,7 +61,15 @@ public class ServerSnake
         while (true)
         {
             Thread.sleep(10);
-            resiveFromAll();
+
+            while (fields.size()<playersQuantity)
+            {
+                synchronized (monitor)
+                {
+                    monitor.wait();
+                }
+            }
+            //resiveFromAll();
 
             sendToAllUsers(combiner.combine(fields));
             fields.clear();

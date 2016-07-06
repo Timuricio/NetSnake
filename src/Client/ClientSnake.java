@@ -27,7 +27,6 @@ public class ClientSnake
 
         try (Socket client = new Socket())
         {
-
             //address = JOptionPane.showInputDialog(frame, "Enter the server address", "Options", JOptionPane.QUESTION_MESSAGE);
             address = "localhost";
             client.connect(new InetSocketAddress(address, 22480));
