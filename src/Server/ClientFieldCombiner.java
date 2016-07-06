@@ -1,7 +1,6 @@
 package Server;
 
 import Common.Field;
-import Common.Test;
 
 import java.util.List;
 
@@ -15,7 +14,6 @@ public class ClientFieldCombiner
 
     public ClientFieldCombiner(int quantity)
     {
-        matrixCommon = new int[ServerSnake.HEIGHT][ServerSnake.WIDTH];
         serverField = new Field(ServerSnake.HEIGHT,ServerSnake.WIDTH);
         init(quantity);
     }
@@ -35,7 +33,7 @@ public class ClientFieldCombiner
 
     public Field combine(List<Field> fields)
     {
-        Field serverField2 = new Field(ServerSnake.HEIGHT,ServerSnake.WIDTH);
+        Field serverField = new Field(ServerSnake.HEIGHT,ServerSnake.WIDTH);
         matrixCommon = new int[ServerSnake.HEIGHT][ServerSnake.WIDTH];
 
         for (int y = 0; y < ServerSnake.HEIGHT; y++)
@@ -52,10 +50,10 @@ public class ClientFieldCombiner
             }
         }
 
-        serverField2.setMatrix(matrixCommon);
-        serverField2.setMetka(666);
+        serverField.setMatrix(matrixCommon);
+        serverField.setMetka(666);
 
-        return serverField2;
+        return serverField;
     }
 
     public Field getServerField()

@@ -28,8 +28,8 @@ public class ClientSnake
 
         try (Socket client = new Socket())
         {
-            address = JOptionPane.showInputDialog(frame, "Enter the server address", "Options", JOptionPane.QUESTION_MESSAGE);
-            //address = "127.0.0.1";
+            //address = JOptionPane.showInputDialog(frame, "Enter the server address", "Options", JOptionPane.QUESTION_MESSAGE);
+            address = "127.0.0.1";
             client.connect(new InetSocketAddress(address, 22480));
 
             connection = new Connection(client);
@@ -47,9 +47,7 @@ public class ClientSnake
 
                 connection.send(clientField);
 
-                Field f = connection.resive();
-
-                frame.repaintField(f);
+                frame.repaintField(connection.resive());
             }
 
         } catch (IOException e)

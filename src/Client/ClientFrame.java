@@ -11,8 +11,9 @@ import java.awt.*;
  */
 public class ClientFrame extends JFrame
 {
-    private JLabel userName,score,time;
+    private JLabel userName, score, time;
     private Pixel[][] pixels;
+    private ImageIcon[][] icons;
 
 
     public ClientFrame() throws HeadlessException
@@ -26,14 +27,15 @@ public class ClientFrame extends JFrame
     {
         String name = JOptionPane.showInputDialog(this, "Enter the user name", "Options", JOptionPane.QUESTION_MESSAGE);
 
-        if (name == null||name.isEmpty())
+        if (name == null || name.isEmpty())
             name = "NoName";
 
         return name;
     }
 
-    private void initComponents(){
-        setPreferredSize(new Dimension(830,475));
+    private void initComponents()
+    {
+        setPreferredSize(new Dimension(830, 475));
         setResizable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -46,11 +48,11 @@ public class ClientFrame extends JFrame
         getContentPane().add(userName);
 
         score = new JLabel("Score - 0");
-        score.setBounds(210,5,200,20);
+        score.setBounds(210, 5, 200, 20);
         getContentPane().add(score);
 
         time = new JLabel("Time - 0");
-        time.setBounds(415,5,200,20);
+        time.setBounds(415, 5, 200, 20);
         getContentPane().add(time);
 
         paintField();
@@ -62,13 +64,14 @@ public class ClientFrame extends JFrame
     private void paintField()
     {
         pixels = new Pixel[ServerSnake.HEIGHT][ServerSnake.WIDTH];
+        icons = new ImageIcon[ServerSnake.HEIGHT][ServerSnake.WIDTH];
 
         for (int y = 0; y < ServerSnake.HEIGHT; y++)
         {
             for (int x = 0; x < ServerSnake.WIDTH; x++)
             {
-                pixels[y][x] = new Pixel(Color.decode("#D0D8F6"));
 
+                pixels[y][x] = new Pixel(Color.decode("#D0D8F6"));
                 pixels[y][x].setBounds(5 + x * Pixel.W, 30 + y * Pixel.H, Pixel.W, Pixel.H);
                 getContentPane().add(pixels[y][x]);
             }
@@ -87,6 +90,9 @@ public class ClientFrame extends JFrame
                 if (matrix[y][x] == 0)
                 {
                     pixels[y][x].setBackground(Color.decode("#D0D8F6"));
+                } else if (matrix[y][x] == 1)
+                {
+                    pixels[y][x].setBackground(Color.RED);
                 } else
                 {
                     pixels[y][x].setBackground(Color.BLACK);

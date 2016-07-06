@@ -43,7 +43,9 @@ public class ReciverThread extends Thread
 
         try
         {
+            System.out.println(String.format("Connection %s closing...",connection.getSocket().getRemoteSocketAddress()));
             connection.close();
+            System.out.println("Connection closed.");
 
             for (int i = 0; i < ServerSnake.getConnections().size(); i++)
             {

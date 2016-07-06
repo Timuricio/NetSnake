@@ -9,6 +9,7 @@ public class Field implements Serializable
 {
     private int[][] matrix;
     private int metka=666;
+    private int headX,headY;
 
 
     public Field( int y,int x)
@@ -34,5 +35,27 @@ public class Field implements Serializable
     public void setMetka(int metka)
     {
         this.metka = metka;
+    }
+
+
+
+    public int getHeadX()
+    {
+        return headX;
+    }
+
+    public void setHeadX(int headX)
+    {
+        this.headX = headX;
+    }
+
+    public int getHeadY()
+    {
+        return headY;
+    }
+
+    public void setHeadY(int headY)
+    {
+        this.headY = headY;
     }
 }
