@@ -20,7 +20,7 @@ public class ClientSnake
 
         Field clientField;
 
-        final int time = 100;
+        final int time = 500;
 
         Connection connection;
         String address = "";

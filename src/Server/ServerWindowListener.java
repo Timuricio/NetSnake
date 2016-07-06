@@ -19,8 +19,8 @@ public class ServerWindowListener implements WindowListener
     {
         try
         {
+            System.out.println("Server closed");
             ServerSnake.serverClose();
-
         } catch (Exception e1)
         {
             e1.printStackTrace();

@@ -29,7 +29,6 @@ public class ServerSnake
 
 
         ServerFrame serverFrame = new ServerFrame();
-        Field serverField;
         ClientFieldCombiner combiner;
 
         String temp = "";
@@ -100,5 +99,10 @@ public class ServerSnake
     public static List<Field> getFields()
     {
         return fields;
+    }
+
+    public static List<Connection> getConnections()
+    {
+        return connections;
     }
 }

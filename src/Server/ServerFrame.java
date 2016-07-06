@@ -19,7 +19,7 @@ public class ServerFrame extends JFrame
     {
         setPreferredSize(new Dimension(150,300));
         setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
         setDefaultLookAndFeelDecorated(true);
 

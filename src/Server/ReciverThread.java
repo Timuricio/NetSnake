@@ -9,17 +9,20 @@ import java.io.IOException;
  */
 public class ReciverThread extends Thread
 {
-    Connection connection;
+    private Connection connection;
+    private boolean work;
 
     public ReciverThread(Connection connection)
     {
         this.connection = connection;
+        this.setDaemon(true);
+        work= true;
     }
 
     @Override
     public void run()
     {
-        while (true)
+        while (work)
         {
             try
             {
@@ -30,11 +33,30 @@ public class ReciverThread extends Thread
                 }
             } catch (IOException e)
             {
-                e.printStackTrace();
+                work = false;
+
             } catch (ClassNotFoundException e)
             {
                 e.printStackTrace();
             }
+        }
+
+        try
+        {
+            connection.close();
+
+            for (int i = 0; i < ServerSnake.getConnections().size(); i++)
+            {
+                if (ServerSnake.getConnections().get(i).equals(connection));
+                {
+                    ServerSnake.getConnections().remove(i);
+                    break;
+                }
+            }
+
+        } catch (Exception e)
+        {
+            e.printStackTrace();
         }
     }
 }

@@ -29,11 +29,7 @@ public class ClientFieldCombiner
             matrix[1 + ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 1)] = i+4;
             matrix[2 + ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 1)] = i+4;
         }
-
         serverField.setMatrix(matrix);
-
-        Test.test(serverField);
-
         return serverField;
     }
 
