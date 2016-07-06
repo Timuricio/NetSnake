@@ -40,9 +40,13 @@ public class ServerFrame extends JFrame
         c.gridy = 1;
         getContentPane().add(quantityConnected,c);
 
+        addWindowListener(new ServerWindowListener());
+
         pack();
         setVisible(true);
     }
+
+
 
     public void setQuantity(int q)
     {
