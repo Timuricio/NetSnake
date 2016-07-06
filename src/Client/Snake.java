@@ -1,4 +1,5 @@
 package Client;
+
 import Common.Apple;
 
 import Common.Field;
@@ -113,7 +114,7 @@ public class Snake {
 
     public void up() {
         moveBody();
-        if(--headY < 0) isAlive = false;
+        if (--headY < 0) isAlive = false;
         Ar[0][0] = headY;
         Ar[0][1] = headX;
         matrix.getMatrix()[headY][headX] = metka;
@@ -122,7 +123,7 @@ public class Snake {
 
     public void down() {
         moveBody();
-        if(++headY >= ServerSnake.HEIGHT) isAlive = false;
+        if (++headY >= ServerSnake.HEIGHT) isAlive = false;
         Ar[0][0] = headY;
         Ar[0][1] = headX;
         matrix.getMatrix()[headY][headX] = metka;
@@ -131,7 +132,7 @@ public class Snake {
 
     public void left() {
         moveBody();
-        if(--headX < 0) isAlive = false;
+        if (--headX < 0) isAlive = false;
         Ar[0][0] = headY;
         Ar[0][1] = headX;
         matrix.getMatrix()[headY][headX] = metka;
@@ -140,7 +141,7 @@ public class Snake {
 
     public void right() {
         moveBody();
-        if(++headX >= ServerSnake.WIDTH) isAlive = false;
+        if (++headX >= ServerSnake.WIDTH) isAlive = false;
         Ar[0][0] = headY;
         Ar[0][1] = headX;
         matrix.getMatrix()[headY][headX] = metka;
@@ -148,11 +149,15 @@ public class Snake {
     }
 
     public void checkApple(Field field) {
-        for(int y = 0; y < ServerSnake.HEIGHT; y++) {
-            for(int x = 0; x < ServerSnake.WIDTH; x++) {
-                if(field.getMatrix()[y][x] == Apple.metka) {
-                    apple = new Apple(y, x);
-                    return;
+        for (int y = 0; y < ServerSnake.HEIGHT; y++) {
+            for (int x = 0; x < ServerSnake.WIDTH; x++) {
+                if (field.getMatrix()[y][x] == Apple.metka) {
+                    if (apple.y == y && apple.x == x) {
+
+                    } else {
+                        apple = new Apple(y, x);
+                        return;
+                    }
                 }
             }
         }
@@ -161,7 +166,7 @@ public class Snake {
 
     public void eatApple(Field field) {
         checkApple(field);
-        if( ( apple.y == headY ) && ( apple.x == headX ) ) {
+        if ((apple.y == headY) && (apple.x == headX)) {
             size++;
             score += apple.point;
             apple = new Apple(matrix);
