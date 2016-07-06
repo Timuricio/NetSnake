@@ -21,6 +21,7 @@ public class Snake {
     private SnakeDirection direction;
     Field matrix;
     public Apple apple;
+    boolean b = true;
 
 
     public SnakeDirection getDirection() {
@@ -149,13 +150,21 @@ public class Snake {
     }
 
     public void checkApple(Field field) {
+
         for (int y = 0; y < ServerSnake.HEIGHT; y++) {
             for (int x = 0; x < ServerSnake.WIDTH; x++) {
                 if (field.getMatrix()[y][x] == Apple.metka) {
-                    if (apple.y == y && apple.x == x) {
+                    if(!b) {
 
+                        if (apple.y == y && apple.x == x) {
+
+                        } else {
+                            apple = new Apple(y, x);
+                            return;
+                        }
                     } else {
                         apple = new Apple(y, x);
+                        b = false;
                         return;
                     }
                 }
