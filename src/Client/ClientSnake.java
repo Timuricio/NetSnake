@@ -47,7 +47,9 @@ public class ClientSnake
 
                 connection.send(clientField);
 
-                frame.repaintField(connection.resive());
+                Field f = connection.resive();
+
+                frame.repaintField(f);
             }
 
         } catch (IOException e)

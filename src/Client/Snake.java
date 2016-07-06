@@ -1,4 +1,5 @@
 package Client;
+import Common.Apple;
 
 import Common.Field;
 import Server.ServerSnake;
@@ -9,6 +10,7 @@ import java.util.Arrays;
  * Created by Иван on 05.07.2016.
  */
 public class Snake {
+    int score = 0;
     int[][] Ar;
     int size;  // Длинна змеи
     boolean isAlive = false; // Статус змеи
@@ -17,6 +19,7 @@ public class Snake {
     int metka; // Цвет змеи
     private SnakeDirection direction;
     Field matrix;
+    public Apple apple;
 
 
     public SnakeDirection getDirection() {
@@ -33,15 +36,15 @@ public class Snake {
         size = -1;
         Ar = new int[100][2];
         searchMetka();
+        checkApple(field);
         direction = SnakeDirection.UP;
 
     }
 
-    public Field move() {
+    public Field move(Field field) {
 
         matrix = new Field(ServerSnake.HEIGHT, ServerSnake.WIDTH);
         matrix.setMetka(metka);
-        fillField();
         if (direction.equals(direction.LEFT)) {
 
 
@@ -67,7 +70,8 @@ public class Snake {
 
 
         }
-
+        eatApple(field);
+        fillField();
         return matrix;
 
     }
@@ -141,6 +145,29 @@ public class Snake {
         Ar[0][1] = headX;
         matrix.getMatrix()[headY][headX] = metka;
 
+    }
+
+    public void checkApple(Field field) {
+        for(int y = 0; y < ServerSnake.HEIGHT; y++) {
+            for(int x = 0; x < ServerSnake.WIDTH; x++) {
+                if(field.getMatrix()[y][x] == Apple.metka) {
+                    apple = new Apple(y, x);
+                    return;
+                }
+            }
+        }
+
+    }
+
+    public void eatApple(Field field) {
+        checkApple(field);
+        if( ( apple.y == headY ) && ( apple.x == headX ) ) {
+            size++;
+            score += apple.point;
+            apple = new Apple(matrix);
+        } else {
+            matrix.getMatrix()[apple.y][apple.x] = Apple.metka;
+        }
     }
 
 }
