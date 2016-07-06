@@ -33,7 +33,7 @@ public class Snake {
     public Snake(int metka, Field field) {
         this.metka = metka;
         matrix = field;
-        size = -1;
+        size = 0;
         Ar = new int[100][2];
         searchMetka();
         checkApple(field);
@@ -81,8 +81,8 @@ public class Snake {
             for (int x = 0; x < ServerSnake.WIDTH; x++) {
                 if (matrix.getMatrix()[y][x] == metka) {
                     size++;
-                    Ar[size][0] = y;
-                    Ar[size][1] = x;
+                    Ar[size - 1][0] = y;
+                    Ar[size - 1][1] = x;
                     if (!isAlive) {
                         headY = y;
                         headX = x;
