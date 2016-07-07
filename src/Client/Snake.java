@@ -19,10 +19,9 @@ public class Snake {
     int headX; //
     int metka; // Цвет змеи
     private SnakeDirection direction;
-    Field matrix;
+    public Field matrix;
+    public Field field;
     public Apple apple;
-    boolean b = true;
-    int genereteApple;
 
 
     public SnakeDirection getDirection() {
@@ -34,10 +33,8 @@ public class Snake {
     }
 
     public Snake(int metka, Field field) {
-        genereteApple = 0;
         this.metka = metka;
-        if (this.metka == 6) genereteApple++;
-        matrix = field;
+        this.field = field;
         size = 0;
         Ar = new int[100][2];
         searchMetka();
@@ -46,44 +43,47 @@ public class Snake {
     }
 
     public Field move(Field field) {
+        if (isAlive) {
 
-        matrix = new Field(ServerSnake.HEIGHT, ServerSnake.WIDTH);
-        matrix.setMetka(metka);
-        if (direction.equals(direction.LEFT)) {
-
-
-            left();
-
-
-        } else if (direction.equals(direction.RIGHT)) {
+            this.field = field;
+            matrix = new Field(ServerSnake.HEIGHT, ServerSnake.WIDTH);
+            matrix.setMetka(metka);
+            if (direction.equals(direction.LEFT)) {
 
 
-            right();
+                left();
 
 
-        } else if (direction.equals(direction.UP)) {
+            } else if (direction.equals(direction.RIGHT)) {
 
 
-            up();
+                right();
 
 
-        } else if (direction.equals(direction.DOWN)) {
+            } else if (direction.equals(direction.UP)) {
 
 
-            down();
+                up();
 
 
+            } else if (direction.equals(direction.DOWN)) {
+
+
+                down();
+
+
+            }
+            eatApple();
+            fillField();
+            return matrix;
         }
-        eatApple(field);
-        fillField();
-        return matrix;
-
+        return new Field(ServerSnake.HEIGHT, ServerSnake.WIDTH);
     }
 
     public void searchMetka() { // Поиск меток в матрице
         for (int y = 0; y < ServerSnake.HEIGHT; y++) {
             for (int x = 0; x < ServerSnake.WIDTH; x++) {
-                if (matrix.getMatrix()[y][x] == metka) {
+                if (field.getMatrix()[y][x] == metka) {
                     size++;
                     Ar[size - 1][0] = y;
                     Ar[size - 1][1] = x;
@@ -92,9 +92,9 @@ public class Snake {
                         headX = x;
                         isAlive = true;
                     }
-                } else if (matrix.getMatrix()[y][x] == Apple.metka) {
+                } else if (field.getMatrix()[y][x] == Apple.metka) {
                     apple = new Apple(y, x);
-                    apple.endApple(matrix);
+
                 }
             }
         }
@@ -154,7 +154,7 @@ public class Snake {
 
     }
 
-    public void checkApple(Field field) {
+    public void checkApple() {
 
 
         for (int y = 0; y < ServerSnake.HEIGHT; y++) {
@@ -164,16 +164,20 @@ public class Snake {
                     apple = new Apple(y, x);
 
 
-                } else if ((field.getMatrix()[y][x] != Apple.metka) && (field.getMatrix()[y][x] != metka) && field.getMatrix()[y][x] != 0) {
-                    size = 0;
                 }
-            }
 
+            }
         }
+
+        if ((field.getMatrix()[headY][headX] != 1) && (field.getMatrix()[headY][headX] != 0) && (field.getMatrix()[headY][headX] != metka)) {
+            size = 0;
+            isAlive = false;
+        }
+
     }
 
-    public void eatApple(Field field) {
-        checkApple(field);
+    public void eatApple() {
+        checkApple();
         if ((apple.y == headY) && (apple.x == headX)) {
             size++;
             score += apple.point;
