@@ -51,6 +51,8 @@ public class ClientFieldCombiner
         Field serverField = new Field(ServerSnake.HEIGHT, ServerSnake.WIDTH);
         int[][] matrixCommon = new int[ServerSnake.HEIGHT][ServerSnake.WIDTH];
 
+        matrixCommon[yApple][xApple]=1;
+
         for (int y = 0; y < ServerSnake.HEIGHT; y++)
         {
             for (int x = 0; x < ServerSnake.WIDTH; x++)
@@ -78,7 +80,6 @@ public class ClientFieldCombiner
         }
 
         serverField.setMatrix(matrixCommon);
-        serverField.setMetka(666);
 
         return serverField;
     }
