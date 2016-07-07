@@ -15,23 +15,24 @@ import java.util.List;
  */
 public class ServerSnake
 {
-    public static Object monitor = new Object();
+    public static final Object monitor = new Object();
     public static final int WIDTH = 80;
     public static final int HEIGHT = 40;
     private static ServerSocket server;
     private static List<Connection> connections;
     private static List<Field> fields = new ArrayList<>();
+
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException
     {
+        ServerFrame serverFrame= new ServerFrame();
         server = new ServerSocket(22480);
         Connection serverConnection;
-
-        ServerFrame serverFrame = new ServerFrame();
         ClientFieldCombiner combiner;
 
         String temp = "";
         int playersQuantity = 0;
         int playersConnected = 0;
+
         while (temp == null || temp.isEmpty() || !temp.matches("[0-9]*"))
         {
             temp = JOptionPane.showInputDialog(serverFrame, "Enter the number of players:", "Options", JOptionPane.PLAIN_MESSAGE);
