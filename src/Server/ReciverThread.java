@@ -56,6 +56,8 @@ public class ReciverThread extends Thread
                 }
             }
 
+            ServerSnake.playersQuantity--;
+
         } catch (Exception e)
         {
             e.printStackTrace();

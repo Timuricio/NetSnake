@@ -20,7 +20,8 @@ public class ServerSnake
     public static final int HEIGHT = 40;
     private static ServerSocket server;
     private static List<Connection> connections;
-    private static List<Field> fields = new ArrayList<>();
+    private static volatile List<Field> fields = new ArrayList<>();
+    static volatile int playersQuantity = 0;
 
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException
     {
@@ -30,7 +31,7 @@ public class ServerSnake
         ClientFieldCombiner combiner;
 
         String temp = "";
-        int playersQuantity = 0;
+
         int playersConnected = 0;
 
         while (temp == null || temp.isEmpty() || !temp.matches("[0-9]*"))
