@@ -21,7 +21,7 @@ public class ClientSnake
 
         Field clientField;
 
-        final int time = 50;
+        final int time = 70;
 
         Connection connection;
         String address = "";
@@ -35,10 +35,14 @@ public class ClientSnake
 
             connection = new Connection(client);
             metka = connection.resiveNumber();
+
             clientField = connection.resive();
+
 
             snake = new Snake(metka, clientField);
             frame.addKeyListener(new ClientKeyListener(snake));
+
+
 
             while (true)
             {
@@ -49,6 +53,8 @@ public class ClientSnake
                 connection.send(clientField);
 
                 clientField = connection.resive();
+
+                frame.getScore().setText(String.format("Score - %d",snake.score));
 
                 frame.repaintField(clientField);
             }

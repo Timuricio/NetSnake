@@ -61,7 +61,6 @@ public class ServerSnake
 
         while (true)
         {
-            Thread.sleep(10);
 
             while (fields.size()<playersQuantity)
             {
@@ -79,6 +78,8 @@ public class ServerSnake
             fields.clear();
         }
     }
+
+
 
     private static void sendToAllUsers(Field field) throws IOException
     {

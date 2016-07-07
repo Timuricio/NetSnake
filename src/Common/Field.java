@@ -11,6 +11,10 @@ public class Field implements Serializable
     private int metka=666;
     private int headX,headY;
 
+    public Field()
+    {
+        matrix = new int[1][1];
+    }
 
     public Field( int y,int x)
     {
