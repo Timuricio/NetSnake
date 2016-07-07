@@ -1,6 +1,7 @@
 package Server;
 
 import Common.Field;
+import Common.Test;
 
 import java.util.List;
 import java.util.Random;
@@ -30,12 +31,12 @@ public class ClientFieldCombiner
             matrix[1 + ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 1)] = i + 4;
             matrix[2 + ServerSnake.HEIGHT / 2][ServerSnake.WIDTH * i / (quantity + 1)] = i + 4;
         }
-        generateApple(matrix);
+        matrix = generateApple(matrix);
         serverField.setMatrix(matrix);
         return serverField;
     }
 
-    private void generateApple(int[][] m)
+    private int[][] generateApple(int[][] m)
     {
         do
         {
@@ -44,6 +45,8 @@ public class ClientFieldCombiner
         }while (m[yApple][xApple]>4);
 
         m[yApple][xApple] = 1;
+
+        return m;
     }
 
     public Field combine(List<Field> fields)
@@ -60,13 +63,15 @@ public class ClientFieldCombiner
                 for (Field field : fields)
                 {
                     if (field.getMatrix()[y][x] == 1 && !appleEaten)
-                    {
+                    {/*
                         if (matrixCommon[y][x] > 4)
                             appleEaten = true;
-                        else
+                        else*/
                             matrixCommon[y][x] = 1;
                     } else if (field.getMatrix()[y][x] == field.getMetka())
                     {
+                        if (matrixCommon[y][x]==1)
+                            appleEaten = true;
                         matrixCommon[y][x] = field.getMetka();
                     }
                 }
@@ -75,7 +80,7 @@ public class ClientFieldCombiner
 
         if (appleEaten)
         {
-            generateApple(matrixCommon);
+            matrixCommon = generateApple(matrixCommon);
             appleEaten = false;
         }
 

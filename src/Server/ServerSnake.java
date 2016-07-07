@@ -71,8 +71,11 @@ public class ServerSnake
                 }
             }
             //resiveFromAll();
+            Field f = combiner.combine(fields);
 
-            sendToAllUsers(combiner.combine(fields));
+            Test.test(f);
+
+            sendToAllUsers(f);
             fields.clear();
         }
     }
