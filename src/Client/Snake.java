@@ -161,9 +161,11 @@ public class Snake {
             for (int x = 0; x < ServerSnake.WIDTH; x++) {
                 if (field.getMatrix()[y][x] == Apple.metka) {
 
-                        apple = new Apple(y, x);
+                    apple = new Apple(y, x);
 
 
+                } else if ((field.getMatrix()[y][x] != Apple.metka) && (field.getMatrix()[y][x] != metka) && field.getMatrix()[y][x] != 0) {
+                    size = 0;
                 }
             }
 
