@@ -124,6 +124,7 @@ public class Snake {
         Ar[0][0] = headY;
         Ar[0][1] = headX;
         matrix.getMatrix()[headY][headX] = metka;
+        isAlive();
 
     }
 
@@ -133,6 +134,7 @@ public class Snake {
         Ar[0][0] = headY;
         Ar[0][1] = headX;
         matrix.getMatrix()[headY][headX] = metka;
+        isAlive();
 
     }
 
@@ -142,6 +144,7 @@ public class Snake {
         Ar[0][0] = headY;
         Ar[0][1] = headX;
         matrix.getMatrix()[headY][headX] = metka;
+        isAlive();
 
     }
 
@@ -151,6 +154,7 @@ public class Snake {
         Ar[0][0] = headY;
         Ar[0][1] = headX;
         matrix.getMatrix()[headY][headX] = metka;
+        isAlive();
 
     }
 
@@ -185,6 +189,13 @@ public class Snake {
             apple.endApple(matrix);
         } else {
             apple.endApple(matrix);
+        }
+    }
+
+    public void isAlive() {
+        for (int i = 1; i < size; i++) {
+            if ((Ar[0][0] == Ar[i][0]) && (Ar[0][1] == Ar[i][1]))
+                isAlive = false;
         }
     }
 
