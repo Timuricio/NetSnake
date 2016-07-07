@@ -22,6 +22,7 @@ public class Snake {
     Field matrix;
     public Apple apple;
     boolean b = true;
+    int genereteApple;
 
 
     public SnakeDirection getDirection() {
@@ -33,12 +34,13 @@ public class Snake {
     }
 
     public Snake(int metka, Field field) {
+        genereteApple = 0;
         this.metka = metka;
+        if (this.metka == 6) genereteApple++;
         matrix = field;
         size = 0;
         Ar = new int[100][2];
         searchMetka();
-        checkApple(field);
         direction = SnakeDirection.UP;
 
     }
@@ -90,6 +92,9 @@ public class Snake {
                         headX = x;
                         isAlive = true;
                     }
+                } else if (matrix.getMatrix()[y][x] == Apple.metka) {
+                    apple = new Apple(y, x);
+                    apple.endApple(matrix);
                 }
             }
         }
@@ -151,26 +156,18 @@ public class Snake {
 
     public void checkApple(Field field) {
 
+
         for (int y = 0; y < ServerSnake.HEIGHT; y++) {
             for (int x = 0; x < ServerSnake.WIDTH; x++) {
                 if (field.getMatrix()[y][x] == Apple.metka) {
-                    if(!b) {
 
-                        if (apple.y == y && apple.x == x) {
-
-                        } else {
-                            apple = new Apple(y, x);
-                            return;
-                        }
-                    } else {
                         apple = new Apple(y, x);
-                        b = false;
-                        return;
-                    }
+
+
                 }
             }
-        }
 
+        }
     }
 
     public void eatApple(Field field) {
@@ -178,9 +175,9 @@ public class Snake {
         if ((apple.y == headY) && (apple.x == headX)) {
             size++;
             score += apple.point;
-            apple = new Apple(matrix);
+            apple.endApple(matrix);
         } else {
-            matrix.getMatrix()[apple.y][apple.x] = Apple.metka;
+            apple.endApple(matrix);
         }
     }
 
